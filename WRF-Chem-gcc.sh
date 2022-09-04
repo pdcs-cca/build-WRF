@@ -4,9 +4,9 @@
 # copyright Universidad Nacional Autonoma de Mexico 2022 
 #
 
-export HOME_APPS=
-export COMPILER_NAME=
-export COMPILER_VERSION=
+export HOME_APPS= #$HOME/software/apps
+export COMPILER_NAME=gcc 
+export COMPILER_VERSION= #9, 10, 11
 export COMP_VERSION=$COMPILER_NAME/$COMPILER_VERSION
 
 _banner(){
@@ -193,7 +193,9 @@ export YACC="/usr/bin/yacc -d"
 export FLEX_LIB_DIR="/usr/lib/x86_64-linux-gnu"
 
 sed -i 's/FALSE/TRUE/' arch/Config.pl 
-curl -LO https://raw.githubusercontent.com/pdcs-cca/compila-WRF/main/ubuntu-20-gcc/chem/configure.wrf
+test $COMP_VERSION -eq 9 &&  
+    curl -LO https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc9.wrf || 
+    curl -LO https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc11.wrf
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile -j 4 em_real 
 echo "prepend_path(\"PATH\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WRF/main\")
 setenv(\"WRF_ROOT\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WRF\")
@@ -204,7 +206,9 @@ cd $HOME_APPS/wrf-chem/$COMP_VERSION
 curl -L https://github.com/wrf-model/WPS/archive/refs/tags/v4.4.tar.gz | tar xzvf -
 ln -sv WPS-4.4 WPS
 cd WPS-4.4
-curl -LO https://raw.githubusercontent.com/pdcs-cca/compila-WRF/main/ubuntu-20-gcc/chem/configure.wps
+test $COMP_VERSION -eq 9 &&  
+    curl -LO https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc9.wps || 
+    curl -LO https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc11.wps
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile  
 mkdir bin 
 cp -v *.exe bin 
