@@ -193,7 +193,7 @@ export YACC="/usr/bin/yacc -d"
 export FLEX_LIB_DIR="/usr/lib/x86_64-linux-gnu"
 
 sed -i 's/FALSE/TRUE/' arch/Config.pl 
-test $COMP_VERSION -eq 9 &&  
+test $COMPILER_VERSION -eq 9 &&  
     curl -LO https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc9.wrf > configure.wrf || 
     curl -LO https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc11.wrf > configure.wrf
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile -j 4 em_real 
@@ -208,7 +208,7 @@ cd $HOME_APPS/wrf-chem/$COMP_VERSION
 curl -L https://github.com/wrf-model/WPS/archive/refs/tags/v4.4.tar.gz | tar xzvf -
 ln -sv WPS-4.4 WPS
 cd WPS-4.4
-test $COMP_VERSION -eq 9 &&  
+test $COMPILER_VERSION -eq 9 &&  
     curl -LO https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc9.wps > configure.wps || 
     curl -LO https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc11.wps > configure.wps
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile  
