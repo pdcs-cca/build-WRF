@@ -124,7 +124,7 @@ ml purge
 mkdir -pv $HOME_APPS/modulefiles 
 mkdir -pv $HOME_APPS/modulefiles/wrf-chem
 WRF_MODULE=$HOME_APPS/modulefiles/wrf-chem/4.4.1.lua 
-sudo sh -c "echo $HOME_APPS/modulefiles > /etc/lmod/modulespath "
+test -e /etc/lmod/modulespath && sudo sh -c "echo $HOME_APPS/modulefiles > /etc/lmod/modulespath "
 ml use $HOME_APPS/modulefiles 
 
 _banner "ZLIB"
