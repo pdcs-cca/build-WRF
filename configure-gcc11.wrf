@@ -135,7 +135,7 @@ SFC             =       \time -v gfortran
 SCC             =       \time -v gcc
 CCOMP           =       \time -v gcc
 DM_FC           =       \time -v mpif90 
-DM_CC           =       \time -v mpicc -cc=$(SCC)
+DM_CC           =       \time -v mpicc 
 FC              =       $(DM_FC)
 CC              =       $(DM_CC) -DFSEEKO64_OK 
 LD              =       $(FC)
@@ -161,7 +161,7 @@ MODULE_SRCH_FLAG =
 TRADFLAG        =      -traditional-cpp $(NETCDF4_IO_OPTS)
 CPP             =      /lib/cpp -P -nostdinc
 AR              =      ar
-ARFLAGS         =      ru
+ARFLAGS         =      rv
 M4              =      m4 -G
 RANLIB          =      ranlib
 RLFLAGS		=	
