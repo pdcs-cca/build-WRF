@@ -4,8 +4,12 @@
 # copyright Universidad Nacional Autonoma de Mexico 2022 
 #
 
-export HOME_APPS= #$HOME/software/apps
+export HOME_APPS=$PWD #$HOME/software/apps
 export COMPILER_NAME=gcc 
+# Debian 10 COMPILER_VERSION=9
+# Debian 11 COMPILER_VERSION=10
+# Ubuntu 20 COMPILER_VERSION=9
+# Ubuntu 22 COMPILER_VERSION=11 
 export COMPILER_VERSION= #9, 10, 11
 export COMP_VERSION=$COMPILER_NAME/$COMPILER_VERSION
 
