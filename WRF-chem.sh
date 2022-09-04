@@ -1,8 +1,12 @@
 #!/bin/bash 
-# 
-export HOME_APPS=$HOME/software/apps
-export COMPILER_NAME=gcc
-export COMPILER_VERSION=9.4.0
+#
+# pdcs at atmosfera.unam.mx
+# copyright Universidad Nacional Autonoma de Mexico 2022 
+#
+
+export HOME_APPS=
+export COMPILER_NAME=
+export COMPILER_VERSION=
 export COMP_VERSION=$COMPILER_NAME/$COMPILER_VERSION
 
 _banner(){
@@ -101,6 +105,10 @@ _modulo $APP_NAME $APP_VERSION
 ######################################################################################
 ###
 ##
+
+test -z $HOME_APPS  && echo "HOME_APPS is empty ..." && exit 1
+test -z $COMPILER_NAME  && echo "COMPILER_NAME is empty ..." && exit 1
+test -z $COMPILER_VERSION  && echo "COMPILER_VERSION is empty ..." && exit 1
 
 sudo apt -y install gfortran gcc make tcsh flex curl axel vim htop bison mpich libssl-dev mc git tmux figlet
 ml purge || sudo apt -y install lmod
