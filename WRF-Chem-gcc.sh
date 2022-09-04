@@ -186,7 +186,7 @@ _banner "WRF-Chem"
 mkdir -pv $HOME_APPS/wrf-chem/$COMP_VERSION
 cd $HOME_APPS/wrf-chem/$COMP_VERSION
 curl -L https://github.com/wrf-model/WRF/releases/download/v4.4.1/v4.4.1.tar.gz | tar xzvf - 
-ln -sv WRFV4.4.1 WRF
+test ! -L WRF && ln -sv WRFV4.4.1 WRF
 cd WRFV4.4.1 
 
 export EM_CORE=1
@@ -211,7 +211,7 @@ setenv(\"WRF_DIR\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WRF\") " >> $WRF_MODULE
 _banner "WPS"
 cd $HOME_APPS/wrf-chem/$COMP_VERSION 
 curl -L https://github.com/wrf-model/WPS/archive/refs/tags/v4.4.tar.gz | tar xzvf -
-ln -sv WPS-4.4 WPS
+test ! -L WPS && ln -sv WPS-4.4 WPS
 cd WPS-4.4
 test $COMPILER_VERSION -eq 9 &&  
     curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc9.wps > configure.wps || 
