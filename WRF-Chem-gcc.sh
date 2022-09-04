@@ -201,7 +201,8 @@ test $COMPILER_VERSION -eq 9 &&
     curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc9.wrf > configure.wrf || 
     curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc11.wrf > configure.wrf
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile -j 4 em_real 
-test ! -e main/wrf.exe && exit 1
+test ! -e main/real.exe && _banner "Error !!! real.exe" && exit 1
+test ! -e main/wrf.exe && _banner "Error !!! wrf.exe" && exit 1
 echo "prepend_path(\"PATH\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WRF/main\")
 setenv(\"WRF_ROOT\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WRF\")
 setenv(\"WRF_DIR\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WRF\") " >> $WRF_MODULE   
@@ -217,7 +218,7 @@ test $COMPILER_VERSION -eq 9 &&
     curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc11.wps > configure.wps
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile  
 mkdir bin 
-cp -v *.exe bin 
+cp -v *.exe bin  || _banner "Error !!! wps " && exit 1 
 echo "prepend_path(\"PATH\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WPS/bin\")
 setenv(\"WPS_ROOT\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WPS\")"  >> $WRF_MODULE
 
