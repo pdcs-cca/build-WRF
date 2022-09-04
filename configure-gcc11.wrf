@@ -151,7 +151,7 @@ FCREDUCEDOPT	=       $(FCOPTIM)
 FCNOOPT		=       -O0
 FCDEBUG         =       # -g $(FCNOOPT) # -ggdb -fbacktrace -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow
 FORMAT_FIXED    =       -ffixed-form -fallow-argument-mismatch
-FORMAT_FREE     =       -ffree-form -ffree-line-length-none
+FORMAT_FREE     =       -ffree-form -ffree-line-length-none -fallow-argument-mismatch
 FCSUFFIX        =       
 FCCOMPAT        =       
 BYTESWAPIO      =       -fconvert=big-endian -frecord-marker=4

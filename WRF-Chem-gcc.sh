@@ -182,7 +182,7 @@ _banner "WRF-Chem"
 mkdir -pv $HOME_APPS/wrf-chem/$COMP_VERSION
 cd $HOME_APPS/wrf-chem/$COMP_VERSION
 curl -L https://github.com/wrf-model/WRF/releases/download/v4.4.1/v4.4.1.tar.gz | tar xzvf - 
-ln -s WRFV4.4.1 WRF
+ln -sv WRFV4.4.1 WRF
 cd WRFV4.4.1 
 
 export EM_CORE=1
