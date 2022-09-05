@@ -10,7 +10,7 @@ export COMPILER_NAME=gcc
 # Debian 11 COMPILER_VERSION=10
 # Ubuntu 20 COMPILER_VERSION=9
 # Ubuntu 22 COMPILER_VERSION=11 
-export COMPILER_VERSION=10 #9, 10, 11
+export COMPILER_VERSION= #9, 10, 11
 export COMP_VERSION=$COMPILER_NAME/$COMPILER_VERSION
 
 _banner(){
@@ -113,7 +113,7 @@ export WRF_CHEM=1
 export WRF_KPP=1
 export YACC="/usr/bin/yacc -d"
 export FLEX_LIB_DIR="/usr/lib/x86_64-linux-gnu"
-sleep 10
+
 mkdir -pv $WRF_ROOT
 cd $WRF_ROOT
 curl -L https://github.com/wrf-model/WRF/releases/download/v4.4.1/v4.4.1.tar.gz | tar --strip-components=1  -xzvf - 
