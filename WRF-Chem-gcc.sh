@@ -136,7 +136,7 @@ test $COMPILER_VERSION -eq 9 &&
     curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc9.wps > configure.wps || 
     curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc11.wps > configure.wps
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile  
-mkdir bin 
+test ! -d bin && mkdir bin 
 cp -v *.exe bin  || _banner "Error !!! wps "  
 }
 
