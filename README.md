@@ -1,4 +1,4 @@
-# Build WRF 
+# WRF Chem
 
 ~~~bash
 curl -LO https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/WRF-Chem-gcc.sh
@@ -9,7 +9,7 @@ vim  WRF-Chem-gcc.sh
 
 bash WRF-Chem-gcc.sh
 ~~~
-# WRF Chem
+# WRF 
 ~~~bash
 curl -LO https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/WRF-gcc.sh
 ~~~
