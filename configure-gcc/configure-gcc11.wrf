@@ -135,7 +135,7 @@ SFC             =       \time -v gfortran
 SCC             =       \time -v gcc
 CCOMP           =       \time -v gcc
 DM_FC           =       \time -v mpif90 
-DM_CC           =       \time -v mpicc -cc=$(SCC)
+DM_CC           =       \time -v mpicc 
 FC              =       $(DM_FC)
 CC              =       $(DM_CC) -DFSEEKO64_OK 
 LD              =       $(FC)
@@ -150,8 +150,8 @@ FCOPTIM         =       -O2 -ftree-vectorize -funroll-loops
 FCREDUCEDOPT	=       $(FCOPTIM)
 FCNOOPT		=       -O0
 FCDEBUG         =       # -g $(FCNOOPT) # -ggdb -fbacktrace -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow
-FORMAT_FIXED    =       -ffixed-form
-FORMAT_FREE     =       -ffree-form -ffree-line-length-none
+FORMAT_FIXED    =       -ffixed-form -fallow-argument-mismatch
+FORMAT_FREE     =       -ffree-form -ffree-line-length-none -fallow-argument-mismatch
 FCSUFFIX        =       
 FCCOMPAT        =       
 BYTESWAPIO      =       -fconvert=big-endian -frecord-marker=4
@@ -161,7 +161,7 @@ MODULE_SRCH_FLAG =
 TRADFLAG        =      -traditional-cpp $(NETCDF4_IO_OPTS)
 CPP             =      /lib/cpp -P -nostdinc
 AR              =      ar
-ARFLAGS         =      ru
+ARFLAGS         =      rv
 M4              =      m4 -G
 RANLIB          =      ranlib
 RLFLAGS		=	
@@ -231,8 +231,8 @@ CC_TOOLS_CFLAGS = -DNMM_CORE=$(WRF_NMM_CORE)
 
 LIB             =    $(LIB_BUNDLED) $(LIB_EXTERNAL) $(LIB_LOCAL) $(LIB_WRF_HYDRO)  $(NETCDF4_DEP_LIB)
 LDFLAGS         =    $(OMP) $(FCFLAGS) $(LDFLAGS_LOCAL) 
-ENVCOMPDEFS     =     -DWRF_CHEM -DBUILD_CHEM=1 -DWRF_KPP
-WRF_CHEM	=	1 
+ENVCOMPDEFS     =    
+WRF_CHEM	=	0 
 CPPFLAGS        =    $(ARCHFLAGS) $(ENVCOMPDEFS) -I$(LIBINCLUDE) $(TRADFLAG) 
 NETCDFPATH      =    $(NETCDF_C_ROOT)
 HDF5PATH        =    $(HDF5_ROOT)
