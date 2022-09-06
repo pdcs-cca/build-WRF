@@ -119,8 +119,8 @@ cd $WRF_ROOT
 curl -L https://github.com/wrf-model/WRF/releases/download/v4.4.1/v4.4.1.tar.gz | tar --strip-components=1  -xzvf - 
 sed -i 's/FALSE/TRUE/' arch/Config.pl 
 test $COMPILER_VERSION -eq 9 &&  
-    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc9.wrf > configure.wrf || 
-    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc11.wrf > configure.wrf
+    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc9.wrf.chem > configure.wrf || 
+    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc11.wrf.chem > configure.wrf
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile -j 4 em_real 
 test ! -e main/real.exe && _banner "Error !!! real.exe" && exit 1
 test ! -e main/wrf.exe && _banner "Error !!! wrf.exe" && exit 1
@@ -133,8 +133,8 @@ mkdir -pv $WPS_ROOT
 cd $WPS_ROOT 
 curl -L https://github.com/wrf-model/WPS/archive/refs/tags/v4.4.tar.gz | tar --strip-components=1  -xzvf -
 test $COMPILER_VERSION -eq 9 &&  
-    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc9.wps > configure.wps || 
-    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc11.wps > configure.wps
+    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc9.wps.chem > configure.wps || 
+    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc11.wps.chem > configure.wps
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile  
 test ! -d bin && mkdir bin 
 cp -v *.exe bin  || _banner "Error !!! wps "  

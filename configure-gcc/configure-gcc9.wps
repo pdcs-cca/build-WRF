@@ -88,7 +88,7 @@ LN		=	ln -sf
 MAKE		=	make -i -r
 RM		= 	/bin/rm -f
 CP		= 	/bin/cp
-AR		=	ar ru
+AR		=	ar rv
 
 .IGNORE:
 .SUFFIXES: .c .f .F .o

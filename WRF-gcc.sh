@@ -4,9 +4,13 @@
 # copyright Universidad Nacional Autonoma de Mexico 2022 
 #
 
-export HOME_APPS=
-export COMPILER_NAME=
-export COMPILER_VERSION=
+export HOME_APPS=$PWD #$HOME/software/apps
+export COMPILER_NAME=gcc 
+# Debian 10 COMPILER_VERSION=9
+# Debian 11 COMPILER_VERSION=10
+# Ubuntu 20 COMPILER_VERSION=9
+# Ubuntu 22 COMPILER_VERSION=11 
+export COMPILER_VERSION= #9, 10, 11
 export COMP_VERSION=$COMPILER_NAME/$COMPILER_VERSION
 
 _banner(){
@@ -99,6 +103,40 @@ test ! -z "$CHECK" && make -j4 check
 make install
 _modulo $APP_NAME $APP_VERSION
 }
+
+_build-wrf(){
+
+test  -e $WRF_ROOT/main/real.exe -a  -e $WRF_ROOT/main/wrf.exe -a -e $WRF_ROOT/main/ndown.exe -a -e  $WRF_ROOT/main/tc.exe && return 0
+
+mkdir -pv $WRF_ROOT
+cd $WRF_ROOT
+curl -L https://github.com/wrf-model/WRF/releases/download/v4.4.1/v4.4.1.tar.gz | tar --strip-components=1  -xzvf - 
+sed -i 's/FALSE/TRUE/' arch/Config.pl 
+test $COMPILER_VERSION -eq 9 &&  
+    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc9.wrf > configure.wrf || 
+    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc11.wrf > configure.wrf
+/usr/sbin/logsave  compile-$(date +%s).log  ./compile -j 4 em_real 
+test ! -e main/real.exe && _banner "Error !!! real.exe" && exit 1
+test ! -e main/wrf.exe && _banner "Error !!! wrf.exe" && exit 1
+}
+
+_build-wps(){
+
+test -L $WPS_ROOT/geogrid.exe -a -L $WPS_ROOT/metgrid.exe -a -L $WPS_ROOT/ungrib.exe && return 0
+mkdir -pv $WPS_ROOT
+cd $WPS_ROOT 
+curl -L https://github.com/wrf-model/WPS/archive/refs/tags/v4.4.tar.gz | tar --strip-components=1  -xzvf -
+test $COMPILER_VERSION -eq 9 &&  
+    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc9.wps > configure.wps || 
+    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc11.wps > configure.wps
+/usr/sbin/logsave  compile-$(date +%s).log  ./compile  
+test ! -d bin && mkdir bin 
+test ! -L geogrid.exe && _banner "Error !!! geogrid.exe" && exit 1 
+test ! -L metgrid.exe && _banner "Error !!! metgrid.exe" && exit 1 
+test ! -L ungrib.exe && _banner "Error !!! ungrib.exe" && exit 1 
+cp -v *.exe bin  
+}
+
 ##
 ###
 ######################################################################################
@@ -116,11 +154,13 @@ test -e /etc/profile.d/lmod.sh &&  source /etc/profile.d/lmod.sh
 
 _banner "WRF 4.4.1"
 ml purge 
+export WRF_ROOT=$HOME_APPS/wrf/$COMP_VERSION/WRF
+export WPS_ROOT=$HOME_APPS/wrf/$COMP_VERSION/WPS
 
 mkdir -pv $HOME_APPS/modulefiles 
-mkdir -pv $HOME_APPS/modulefiles/wrf-chem
-WRF_MODULE=$HOME_APPS/modulefiles/wrf-chem/4.4.1.lua 
-sudo sh -c "echo $HOME_APPS/modulefiles > /etc/lmod/modulespath "
+mkdir -pv $HOME_APPS/modulefiles/wrf
+WRF_MODULE=$HOME_APPS/modulefiles/wrf/4.4.1.lua 
+test -e /etc/lmod/modulespath && sudo sh -c "echo $HOME_APPS/modulefiles > /etc/lmod/modulespath "
 ml use $HOME_APPS/modulefiles 
 
 _banner "ZLIB"
@@ -176,39 +216,18 @@ echo "load(\"$MODULE_FILE\")" >> $WRF_MODULE
 _banner "NETCDF-FORTRAN"
 eval $(_variables netcdf-fortran 4.5.4)
 _setup --prefix=$NETCDF_C_ROOT 
-mkdir $APP_INSTALL
+test ! -d $APP_INSTALL && mkdir $APP_INSTALL
+
 
 _banner "WRF-Chem"
-mkdir -pv $HOME_APPS/wrf-chem/$COMP_VERSION
-cd $HOME_APPS/wrf-chem/$COMP_VERSION
-curl -L https://github.com/wrf-model/WRF/releases/download/v4.4.1/v4.4.1.tar.gz | tar xzvf - 
-ln -s WRFV4.4.1 WRF
-cd WRFV4.4.1 
+_build-wrf
+echo "prepend_path(\"PATH\",\"$WRF_ROOT/main\")
+setenv(\"WRF_ROOT\",\"$WRF_ROOT\")
+setenv(\"WRF_DIR\",\"$WRF_ROOT\") " >> $WRF_MODULE   
 
-export EM_CORE=1
-export NMM_CORE=0
-export WRF_CHEM=1
-export WRF_KPP=1
-export YACC="/usr/bin/yacc -d"
-export FLEX_LIB_DIR="/usr/lib/x86_64-linux-gnu"
-
-sed -i 's/FALSE/TRUE/' arch/Config.pl 
-curl -LO https://raw.githubusercontent.com/pdcs-cca/compila-WRF/main/ubuntu-20-gcc/chem/configure.wrf
-/usr/sbin/logsave  compile-$(date +%s).log  ./compile -j 4 em_real 
-echo "prepend_path(\"PATH\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WRF/main\")
-setenv(\"WRF_ROOT\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WRF\")
-setenv(\"WRF_DIR\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WRF\") " >> $WRF_MODULE   
 
 _banner "WPS"
-cd $HOME_APPS/wrf-chem/$COMP_VERSION 
-curl -L https://github.com/wrf-model/WPS/archive/refs/tags/v4.4.tar.gz | tar xzvf -
-ln -sv WPS-4.4 WPS
-cd WPS-4.4
-curl -LO https://raw.githubusercontent.com/pdcs-cca/compila-WRF/main/ubuntu-20-gcc/chem/configure.wps
-/usr/sbin/logsave  compile-$(date +%s).log  ./compile  
-mkdir bin 
-cp -v *.exe bin 
-echo "prepend_path(\"PATH\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WPS/bin\")
-setenv(\"WPS_ROOT\",\"$HOME_APPS/wrf-chem/$COMP_VERSION/WPS\")"  >> $WRF_MODULE
-
+_build-wps
+echo "prepend_path(\"PATH\",\"$WPS_ROOT/bin\")
+setenv(\"WPS_ROOT\",\"$WPS_ROOT\")"  >> $WRF_MODULE
 
