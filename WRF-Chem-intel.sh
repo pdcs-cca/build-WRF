@@ -8,7 +8,7 @@
 
 export HOME_APPS=$PWD #$HOME/software/apps
 export COMPILER_NAME=intel 
-export COMPILER_VERSION=2021u5
+export COMPILER_VERSION= #2021u5
 export COMP_VERSION=$COMPILER_NAME/$COMPILER_VERSION
 
 export CC=icc FC=ifort F77=ifort F90=ifort CXX=icpc
