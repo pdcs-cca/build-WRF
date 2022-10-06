@@ -144,6 +144,8 @@ cp -v *.exe bin
 ###
 ##
 
+DATEI=$(date)
+
 test -z $HOME_APPS  && echo "HOME_APPS is empty ..." && exit 1
 test -z $COMPILER_NAME  && echo "COMPILER_NAME is empty ..." && exit 1
 test -z $COMPILER_VERSION  && echo "COMPILER_VERSION is empty ..." && exit 1
@@ -231,3 +233,7 @@ _build-wps
 echo "prepend_path(\"PATH\",\"$WPS_ROOT/bin\")
 setenv(\"WPS_ROOT\",\"$WPS_ROOT\")"  >> $WRF_MODULE
 
+DATEF=$(date)
+
+echo $DATEI
+echo $DATEF
