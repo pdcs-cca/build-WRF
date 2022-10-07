@@ -124,7 +124,7 @@ mkdir -pv $WRF_ROOT
 cd $WRF_ROOT
 curl -L https://github.com/wrf-model/WRF/releases/download/v4.4.1/v4.4.1.tar.gz | tar --strip-components=1  -xzvf - 
 sed -i 's/FALSE/TRUE/' arch/Config.pl 
-curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-intel/configure.wrf > configure.wrf
+curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-intel/configure-intel.wrf.chem > configure.wrf
 bash
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile -j 4 em_real 
 test ! -e main/real.exe && _banner "Error !!! real.exe" && exit 1
