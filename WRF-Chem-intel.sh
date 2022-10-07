@@ -137,7 +137,7 @@ test -L $WPS_ROOT/geogrid.exe -a -L $WPS_ROOT/metgrid.exe -a -L $WPS_ROOT/ungrib
 mkdir -pv $WPS_ROOT
 cd $WPS_ROOT 
 curl -L https://github.com/wrf-model/WPS/archive/refs/tags/v4.4.tar.gz | tar --strip-components=1  -xzvf -
-curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-intel/configure.wps > configure.wps
+curl -L  https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-intel/configure-intel.wps > configure.wps
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile  
 test ! -d bin && mkdir bin 
 test ! -L geogrid.exe && _banner "Error !!! geogrid.exe" && exit 1 
