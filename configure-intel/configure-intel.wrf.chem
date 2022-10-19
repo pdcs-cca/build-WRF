@@ -142,8 +142,8 @@ LD              =       $(FC)
 RWORDSIZE       =       $(NATIVE_RWORDSIZE)
 PROMOTION       =       -real-size `expr 8 \* $(RWORDSIZE)` -i4
 ARCH_LOCAL      =       -DNONSTANDARD_SYSTEM_FUNC -DWRF_USE_CLM $(NETCDF4_IO_OPTS)
-CFLAGS_LOCAL    =       -w -O3 -ip -fp-model fast=2 -no-prec-div -no-prec-sqrt -ftz -no-multibyte-chars -xCORE-AVX2 -DRPC_TYPES=1 # -DRSL0_ONLY
-LDFLAGS_LOCAL   =       -ip -fp-model fast=2 -no-prec-div -no-prec-sqrt -ftz -align all -fno-alias -fno-common -xCORE-AVX2
+CFLAGS_LOCAL    =       -w -O3 -ip -fp-model precise -no-prec-div -no-prec-sqrt -ftz -no-multibyte-chars -xCORE-AVX2 -DRPC_TYPES=1 # -DRSL0_ONLY
+LDFLAGS_LOCAL   =       -ip -fp-model precise -no-prec-div -no-prec-sqrt -ftz -align all -fno-alias -fno-common -xCORE-AVX2
 CPLUSPLUSLIB    =       
 ESMF_LDFLAG     =       $(CPLUSPLUSLIB)
 FCOPTIM         =       -O3
