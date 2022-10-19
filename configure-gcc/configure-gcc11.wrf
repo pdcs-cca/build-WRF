@@ -150,8 +150,8 @@ FCOPTIM         =       -O2 -ftree-vectorize -funroll-loops
 FCREDUCEDOPT	=       $(FCOPTIM)
 FCNOOPT		=       -O0
 FCDEBUG         =       # -g $(FCNOOPT) # -ggdb -fbacktrace -fcheck=bounds,do,mem,pointer -ffpe-trap=invalid,zero,overflow
-FORMAT_FIXED    =       -ffixed-form -fallow-argument-mismatch
-FORMAT_FREE     =       -ffree-form -ffree-line-length-none -fallow-argument-mismatch
+FORMAT_FIXED    =       -ffixed-form -fallow-argument-mismatch -fallow-invalid-boz
+FORMAT_FREE     =       -ffree-form -ffree-line-length-none -fallow-argument-mismatch -fallow-invalid-boz
 FCSUFFIX        =       
 FCCOMPAT        =       
 BYTESWAPIO      =       -fconvert=big-endian -frecord-marker=4
