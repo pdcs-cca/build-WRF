@@ -117,7 +117,7 @@ mkdir -pv $WRF_ROOT
 cd $WRF_ROOT
 curl -L https://github.com/wrf-model/WRF/releases/download/v4.4.1/v4.4.1.tar.gz | tar --strip-components=1  -xzvf - 
 sed -i 's/FALSE/TRUE/' arch/Config.pl 
-curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-intel/configure.wrf > configure.wrf
+curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-intel/configure-intel.wrf > configure.wrf
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile -j 4 em_real 
 test ! -e main/real.exe && _banner "Error !!! real.exe" && exit 1
 test ! -e main/wrf.exe && _banner "Error !!! wrf.exe" && exit 1
@@ -129,7 +129,7 @@ test -L $WPS_ROOT/geogrid.exe -a -L $WPS_ROOT/metgrid.exe -a -L $WPS_ROOT/ungrib
 mkdir -pv $WPS_ROOT
 cd $WPS_ROOT 
 curl -L https://github.com/wrf-model/WPS/archive/refs/tags/v4.4.tar.gz | tar --strip-components=1  -xzvf -
-curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-intel/configure.wps > configure.wps
+curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-intel/configure-intel.wps > configure.wps
 /usr/sbin/logsave  compile-$(date +%s).log  ./compile  
 test ! -d bin && mkdir bin 
 test ! -L geogrid.exe && _banner "Error !!! geogrid.exe" && exit 1 
