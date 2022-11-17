@@ -230,7 +230,7 @@ ml $MODULE_FILE
 ml
 echo "load(\"$MODULE_FILE\")" >> $WRF_MODULE
 
-_banner "WRF-Chem"
+_banner "WRF"
 _build-wrf
 echo "prepend_path(\"PATH\",\"$WRF_ROOT/main\")
 setenv(\"WRF_ROOT\",\"$WRF_ROOT\")
