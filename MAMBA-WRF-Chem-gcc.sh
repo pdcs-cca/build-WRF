@@ -186,20 +186,21 @@ ml $MODULE_FILE
 ml
 echo "load(\"$MODULE_FILE\")" >> $WRF_MODULE
 
-_banner "CURL"
-eval $(_variables curl 7.82.0 )
-_setup  --with-openssl --without-nghttp3 --without-nghttp2 --with-zlib=$ZLIB_ROOT --prefix=$APP_INSTALL 
-ml $MODULE_FILE
-ml
-echo $LD_LIBRARY_PATH
-bash
-echo "load(\"$MODULE_FILE\")" >> $WRF_MODULE
+#_banner "CURL"
+#eval $(_variables curl 7.82.0 )
+#_setup  --with-openssl --without-nghttp3 --without-nghttp2 --with-zlib=$ZLIB_ROOT --prefix=$APP_INSTALL 
+#ml $MODULE_FILE
+#ml
+#echo $LD_LIBRARY_PATH
+#bash
+#echo "load(\"$MODULE_FILE\")" >> $WRF_MODULE
 
 _banner "LIBPNG"
 eval $(_variables libpng 1.6.37 )
 _setup  --prefix=$APP_INSTALL 
 ml $MODULE_FILE
 ml
+sleep 5
 echo $LD_LIBRARY_PATH
 echo "load(\"$MODULE_FILE\")" >> $WRF_MODULE
 
