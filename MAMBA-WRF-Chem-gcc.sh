@@ -200,7 +200,6 @@ eval $(_variables libpng 1.6.37 )
 _setup  --prefix=$APP_INSTALL 
 ml $MODULE_FILE
 ml
-sleep 5
 echo $LD_LIBRARY_PATH
 echo "load(\"$MODULE_FILE\")" >> $WRF_MODULE
 
