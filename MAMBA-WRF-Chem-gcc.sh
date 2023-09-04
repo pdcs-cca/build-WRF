@@ -103,8 +103,8 @@ mkdir -pv $APP_BUILD
 cd $APP_BUILD
 curl -L $APP_URL | tar xzf -
 cd $APP_NAME-$APP_VERSION/
-./configure $@ 
-make -j8
+./configure $@  |& tee configure-$(date +%s).log
+make -j8 |& tee compile-$(date +%s).log
 test ! -z "$CHECK" && make -j4 check
 make install
 _modulo $APP_NAME $APP_VERSION
@@ -127,7 +127,7 @@ sed -i 's/FALSE/TRUE/' arch/Config.pl
 test $COMPILER_VERSION -eq 9 &&  
     curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc9.wrf.chem > configure.wrf || 
     curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc11.wrf.chem > configure.wrf
-./compile -j 4 em_real | tee compile-$(date +%s).log  
+./compile -j 4 em_real |& tee compile-$(date +%s).log  
 test ! -e main/real.exe && _banner "Error !!! real.exe" && exit 1
 test ! -e main/wrf.exe && _banner "Error !!! wrf.exe" && exit 1
 }
@@ -141,7 +141,7 @@ curl -L https://github.com/wrf-model/WPS/archive/refs/tags/v4.4.tar.gz | tar --s
 test $COMPILER_VERSION -eq 9 &&  
     curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc9.wps.chem > configure.wps || 
     curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc11.wps.chem > configure.wps
-./compile  | tee compile-$(date +%s).log  
+./compile  |& tee compile-$(date +%s).log  
 test ! -d bin && mkdir bin 
 cp -v *.exe bin  || _banner "Error !!! wps "  
 }
