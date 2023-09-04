@@ -77,6 +77,7 @@ LUAMOD
 test $APP_NAME == "jasper" && echo "setenv(\"${__NAME}INC\",base..\"/include\")" >> $HOME_APPS/modulefiles/${MODULE_FILE}.lua
 test $APP_NAME == "jasper" && echo "setenv(\"${__NAME}LIB\",base..\"/lib\")" >> $HOME_APPS/modulefiles/${MODULE_FILE}.lua
 test $APP_NAME == "netcdf-fortran" && echo "setenv(\"NETCDF\",base)" >> $HOME_APPS/modulefiles/${MODULE_FILE}.lua 
+test $APP_NAME == "netcdf-c" && echo "setenv(\"NETCDF\",base)" >> $HOME_APPS/modulefiles/${MODULE_FILE}.lua 
 
 }
 
