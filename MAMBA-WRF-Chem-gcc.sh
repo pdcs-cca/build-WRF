@@ -114,12 +114,12 @@ _modulo $APP_NAME $APP_VERSION
 _build-wrf(){
 
 test  -e $WRF_ROOT/main/real.exe -a  -e $WRF_ROOT/main/wrf.exe -a -e $WRF_ROOT/main/ndown.exe -a -e  $WRF_ROOT/main/tc.exe && return 0
-export EM_CORE=1
-export NMM_CORE=0
-export WRF_CHEM=1
-export WRF_KPP=1
-export YACC="$CONDA_PREFIX/bin/yacc -d"
-export FLEX_LIB_DIR="$CONDA_PREFIX/lib"
+#export EM_CORE=1
+#export NMM_CORE=0
+#export WRF_CHEM=1
+#export WRF_KPP=1
+#export YACC="$CONDA_PREFIX/bin/yacc -d"
+#export FLEX_LIB_DIR="$CONDA_PREFIX/lib"
 
 mkdir -pv $WRF_ROOT
 cd $WRF_ROOT
