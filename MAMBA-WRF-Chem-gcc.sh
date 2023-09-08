@@ -214,7 +214,7 @@ echo "load(\"$MODULE_FILE\")" >> $WRF_MODULE
 
 _banner "HDF5"
 eval $(_variables hdf5 1.10.8 )
-_setup check --enable-fortran --with-zlib=$ZLIB_ROOT --with-szlib=$LIBAEC_ROOT  --prefix=$APP_INSTALL 
+_setup  --enable-fortran --with-zlib=$ZLIB_ROOT --with-szlib=$LIBAEC_ROOT  --prefix=$APP_INSTALL 
 ml $MODULE_FILE
 ml
 echo $LD_LIBRARY_PATH
@@ -222,12 +222,12 @@ echo "load(\"$MODULE_FILE\")" >> $WRF_MODULE
 
 _banner "NETCDF-C"
 eval $(_variables netcdf-c 4.8.1)
-_setup check  --disable-dap-remote-tests  --prefix=$APP_INSTALL 
+_setup   --disable-dap-remote-tests  --prefix=$APP_INSTALL 
 ml $MODULE_FILE
 ml
 echo $LD_LIBRARY_PATH
 echo "load(\"$MODULE_FILE\")" >> $WRF_MODULE
-
+bash
 
 _banner "NETCDF-FORTRAN"
 eval $(_variables netcdf-fortran 4.5.4)
