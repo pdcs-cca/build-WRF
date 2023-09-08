@@ -193,7 +193,6 @@ _setup  --without-libidn2  --with-openssl=$CONDA_PREFIX --without-nghttp3 --with
 ml $MODULE_FILE
 ml
 echo $LD_LIBRARY_PATH
-bash
 echo "load(\"$MODULE_FILE\")" >> $WRF_MODULE
 
 _banner "LIBPNG"
@@ -227,14 +226,13 @@ ml $MODULE_FILE
 ml
 echo $LD_LIBRARY_PATH
 echo "load(\"$MODULE_FILE\")" >> $WRF_MODULE
-bash
 
 _banner "NETCDF-FORTRAN"
 eval $(_variables netcdf-fortran 4.5.4)
 _setup --prefix=$NETCDF_C_ROOT 
 test ! -d $APP_INSTALL && mkdir $APP_INSTALL
 
-
+bash
 _banner "WRF-Chem"
 _build-wrf
 echo "prepend_path(\"PATH\",\"$WRF_ROOT/main\")
