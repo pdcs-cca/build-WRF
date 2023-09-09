@@ -114,9 +114,9 @@ _modulo $APP_NAME $APP_VERSION
 _build-wrf(){
 
 test  -e $WRF_ROOT/main/real.exe -a  -e $WRF_ROOT/main/wrf.exe -a -e $WRF_ROOT/main/ndown.exe -a -e  $WRF_ROOT/main/tc.exe && return 0
-#export EM_CORE=1
-#export NMM_CORE=0
-#export WRF_CHEM=1
+export EM_CORE=1
+export NMM_CORE=0
+export WRF_CHEM=1
 #export WRF_KPP=1
 #export YACC="$CONDA_PREFIX/bin/yacc -d"
 #export FLEX_LIB_DIR="$CONDA_PREFIX/lib"
@@ -232,7 +232,6 @@ eval $(_variables netcdf-fortran 4.5.4)
 _setup --prefix=$NETCDF_C_ROOT 
 test ! -d $APP_INSTALL && mkdir $APP_INSTALL
 
-bash
 _banner "WRF-Chem"
 _build-wrf
 echo "prepend_path(\"PATH\",\"$WRF_ROOT/main\")
