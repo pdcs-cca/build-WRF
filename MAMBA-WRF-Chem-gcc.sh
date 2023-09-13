@@ -127,7 +127,7 @@ curl -L https://github.com/wrf-model/WRF/releases/download/v4.4.1/v4.4.1.tar.gz 
 sed -i 's/FALSE/TRUE/' arch/Config.pl 
 test $COMPILER_VERSION -eq 9 &&  
     curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc9.wrf > configure.wrf || 
-    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc11.wrf-kpp > configure.wrf
+    curl -L https://raw.githubusercontent.com/pdcs-cca/build-WRF/main/configure-gcc/configure-gcc11.wrf.chem-kpp > configure.wrf
 ./compile -j 4 em_real |& tee compile-$(date +%s).log  
 test ! -e main/real.exe && _banner "Error !!! real.exe" && exit 1
 test ! -e main/wrf.exe && _banner "Error !!! wrf.exe" && exit 1
